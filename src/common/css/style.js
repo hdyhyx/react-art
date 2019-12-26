@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
      html, body, div, span, applet, object, iframe,
@@ -29,7 +29,8 @@ export const GlobalStyle = createGlobalStyle`
       line-height: 1;
     }
     html, body{
-      background: #F2F2F7;;
+      background: #f5f5f5;
+      color: #333333;
     }
     ol, ul {
       list-style: none;

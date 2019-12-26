@@ -5,7 +5,7 @@ function Epsode() {
     return (
         <EpsodeContainer>
             <IndexWrapper>
-                <span className='desc'>No</span>
+                <span className='desc'>No.</span>
                 <span className='index'>08</span>
             </IndexWrapper>
             <DeteWrapper>
