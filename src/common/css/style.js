@@ -49,4 +49,11 @@ export const GlobalStyle = createGlobalStyle`
     a{
       text-decoration: none;
     }
+    a,a:hover,a:active,a:visited,a:link,a:focus{
+       -webkit-tap-highlight-color:rgba(0,0,0,0);
+       -webkit-tap-highlight-color: transparent;
+       outline:none;
+       background: none;
+       text-decoration: none;
+  }
 `

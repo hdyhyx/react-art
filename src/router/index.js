@@ -1,7 +1,8 @@
-import React, {Component, lazy, Suspense} from 'react'
+import React, {lazy, Suspense} from 'react'
 import {Redirect} from 'react-router-dom'
+import Tab from '../components/Tab/index'
 
-const SuspenseComponents = Component => props => {
+const SuspenseComponent = Component => props => {
     return (
         <Suspense fallback={null}>
             <Component {...props} />
@@ -9,38 +10,32 @@ const SuspenseComponents = Component => props => {
     )
 }
 
-const MyPage = lazy(() => import('../pages/my/'))
-const ClassicPage = lazy(() => import('../pages/classic/'))
-const BookPage = lazy(() => import('../pages/book/'))
+const MyPage = lazy(() => import('../pages/My/'))
+const ClassicPage = lazy(() => import('../pages/Classic/'))
+const BookPage = lazy(() => import('../pages/Book/'))
 export default [
     {
         path: '/',
-        component: SuspenseComponents(ClassicPage),
-        // path: '/',
-        // component: Tab,
-        // routes: [
-        //     {
-        //         path: '/',
-        //         exact: true,
-        //         render: () => <Redirect to={"/home"}/>
-        //     },
-        //     {
-        //         path: '/home',
-        //         component: SuspenseComponent(HomeComponents),
-        //     },
-        //     {
-        //         path: '/product',
-        //         component: SuspenseComponent(ProductComponents)
-        //     },
-        //     {
-        //         path: '/cart',
-        //         component: SuspenseComponent(CartComponents)
-        //     },
-        //     {
-        //         path: '/my',
-        //         component: SuspenseComponent(MyComponents),
-        //     }
-        // ]
+        component: Tab,
+        routes: [
+            {
+                path: '/',
+                exact: true,
+                render: () => <Redirect to={"/classic"}/>
+            },
+            {
+                path: '/classic',
+                component: SuspenseComponent(ClassicPage),
+            },
+            {
+                path: '/book',
+                component: SuspenseComponent(BookPage)
+            },
+            {
+                path: '/my',
+                component: SuspenseComponent(MyPage),
+            }
+        ]
     }
 
     // {
