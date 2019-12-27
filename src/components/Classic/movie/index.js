@@ -7,10 +7,10 @@ function Movie() {
   return (
         <MovieContainer>
             <img className="image" src={imageUrl} alt=""/>
-            <img className="tag" src={movieTag}  alt=''/>
+            <img className="tag" src={movieTag}  alt=""/>
             <span className="text">人生不能像做菜，把所有的料准备好才下锅</span>
         </MovieContainer>
     )
 }
 
-export default Movie
+export default React.memo(Movie)

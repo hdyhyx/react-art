@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const MovieContainer = styled.div`
+export const SentenceContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
