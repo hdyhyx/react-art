@@ -1,14 +1,14 @@
 import React from "react"
 import {SentenceContainer} from "./style"
-import SentenceTag from "./images/essay-tag.png";
+import SentenceTag from "./images/essay-tag.png"
 
-const imageUrl='http://116.62.24.137/images/movie.8.png'
-function Sentence() {
+function Sentence(props) {
+    const {content, image} = props
     return(
         <SentenceContainer>
-            <img className="image" src={imageUrl} alt=""/>
+            <img className="image" src={image} alt=""/>
             <img className="tag" src={SentenceTag}  alt=""/>
-            <span className="text">人生不能像做菜，把所有的料准备好才下锅</span>
+            <span className="text">{content}</span>
         </SentenceContainer>
     )
 }

@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useEffect} from "react";
+import {connect} from "react-redux"
+import {getLatest, getClassLike, getClassic} from './store/index'
 import {ClassicContaiber, HeadContainer, LikeContainer} from "./style"
-import {Classic as ClassicHttp} from "../../module/classic"
 import Share from "../../components/Share"
 import Epsode from "../../components/Epsode"
 import Like from "../../components/Like"
@@ -9,84 +10,86 @@ import Movie from "../../components/Classic/Movie/"
 import Sentence from "../../components/Classic/Sentence"
 import Music from "../../components/Classic/Music"
 
-const requset = new ClassicHttp()
-const Type = 200
 
 function ClassicType(props) {
-    const {type, onPlaying, playing} = props
+    const {type, content, image, onPlaying, playing} = props
     switch (type) {
         case 100:
-            return <Movie/>
+            return <Movie content={content} image={image}/>
         case 200:
-            return <Music onPlaying={onPlaying} playing={playing}/>
+            return <Music content={content} image={image} onPlaying={onPlaying} playing={playing}/>
         case 300:
-            return <Sentence/>
+            return <Sentence content={content} image={image}/>
         default:
             return null
     }
 }
 
-function Classic() {
-    const [like, setLike] = useState(() => {
-        return {
-            like: false,
-            count: 1000,
-            readOnly: true
-        }
-    })
-    const [classicList,setClassicList]=useState({
-        id:'',
-        image:'',
-        content:'',
-        favNums:'',
-        title:'',
-        type:'',
-        likeStatus:false,
-        index: null,
-    })
+function Classic(props) {
+    const {getLatestDispatch, getClassicDispatch, getLikeDispatch} = props
+    const {classic, like} = props
     const [playing, setPlaying] = useState(false)
-
+    const likeData = like.toJS()
+    const {type, content, title, image, index} = classic.toJS()
     useEffect(() => {
-        requset.getLatest().then(res=>{
-            setClassicList(res)
-        })
+        getLatestDispatch()
+        // eslint-disable-next-line
     }, [])
-
     const onLike = useCallback((like, count) => {
-        count = like ? count - 1 : count + 1
-        setLike(Like => {
-            return {
-                count,
-                like: !like
-            }
-        })
-    }, [like])
-
+        // count = like ? count - 1 : count + 1
+        // setLike(Like => {
+        //     return {
+        //         count,
+        //         like: !like
+        //     }
+        // })
+    }, [])
     const onPlaying = useCallback((playing) => {
         setPlaying(playing => !playing)
     }, [])
 
-    const onNext = useCallback(() => {
-
+    const onNext = useCallback((index) => {
+        getClassicDispatch(index, 'next')
     }, [])
 
-    const onPrev = useCallback(() => {
-
+    const onPrev = useCallback((index) => {
+        getClassicDispatch(index, 'prev')
     }, [])
     return (
         <ClassicContaiber>
             <HeadContainer>
-                <Epsode index={classicList.index}/>
+                <Epsode index={index}/>
                 <LikeContainer>
-                    <Like onLike={onLike} {...like}/>
+                    <Like onLike={onLike} {...likeData}/>
                     <Share/>
                 </LikeContainer>
             </HeadContainer>
-            <ClassicType type={classicList.type} onPlaying={onPlaying} playing={playing}/>
-            <Navi onNext={onNext} onPrev={onPrev}/>
+            <ClassicType type={type} content={content} image={image} onPlaying={onPlaying}
+                         playing={playing}/>
+            <Navi title={title} index={index} onNext={onNext} onPrev={onPrev}/>
         </ClassicContaiber>
     )
 }
 
+// 映射Redux全局的state到组件的props上
+const mapStateToProps = (state) => ({
+    classic: state.getIn(['classic', 'classic']),
+    like: state.getIn(['classic', 'like'])
+});
 
-export default React.memo(Classic)
+// 映射dispatch到props上
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getLatestDispatch() {
+            dispatch(getLatest());
+        },
+        getLikeDispatch() {
+            dispatch(getClassLike())
+        },
+        getClassicDispatch(index, nextOrPrev) {
+            dispatch(getClassic(index, nextOrPrev))
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Classic));

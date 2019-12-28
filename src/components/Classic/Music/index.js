@@ -6,17 +6,16 @@ import tagImage from './images/music-tag.png'
 import needleImage from './images/needle.png'
 import cdImage from './images/disc.png'
 
-const MusicImage = 'http://p2.music.126.net/uxdTOFmK4yWik5QG0pQceA==/109951163304447575.jpg?param=400x400'
 
 function Music(props) {
-    const {onPlaying,playing}=props
+    const {onPlaying, playing, content, image,} = props
     return (
         <MusicWrapper>
             <CdWrapper needleImage={needleImage} cdImage={cdImage}>
                 <div className={`needle ${playing ? 'paying' : 'pause'}`}></div>
                 <div className="cd">
                     <img
-                        src={MusicImage}
+                        src={image}
                         className={`image play ${playing ? '' : 'pause'}`}
                         alt=""
                     />
@@ -29,7 +28,7 @@ function Music(props) {
                 </div>
             </CdWrapper>
             <img className="tag" src={tagImage} alt=""/>
-            <span className="text">人生不能像做菜，把所有的料准备好才下锅</span>
+            <span className="text">{content}</span>
         </MusicWrapper>
     )
 }

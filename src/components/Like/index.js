@@ -3,13 +3,13 @@ import {LikeContainer, Count} from "./style"
 
 
 function Like(props) {
-    const {onLike, like, count} = props
+    const {onLike, likeStatus, count} = props
     const onChangeLike=()=>{
-        onLike(like,count)
+        onLike(likeStatus,count)
     }
     return (
         <LikeContainer onClick={onChangeLike}>
-            <span className={`iconfont ${like ? 'icon-likefill' : 'icon-like'}`}></span>
+            <span className={`iconfont ${likeStatus ? 'icon-likefill' : 'icon-like'}`}></span>
             <Count>{count}</Count>
         </LikeContainer>
     )
