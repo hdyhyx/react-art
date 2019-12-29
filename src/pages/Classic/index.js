@@ -6,7 +6,7 @@ import Share from "../../components/Share"
 import Epsode from "../../components/Epsode"
 import Like from "../../components/Like"
 import Navi from "../../components/Navi"
-import Movie from "../../components/Classic/Movie/"
+import Movie from "../../components/Classic/Movie"
 import Sentence from "../../components/Classic/Sentence"
 import Music from "../../components/Classic/Music"
 
@@ -36,6 +36,7 @@ function Classic(props) {
         // eslint-disable-next-line
     }, [])
     const onLike = useCallback((like, count) => {
+        console.log(like,count)
         // count = like ? count - 1 : count + 1
         // setLike(Like => {
         //     return {

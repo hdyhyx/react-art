@@ -44,6 +44,12 @@ const getClassic = (index,nextOrPrev) => {
     }
 }
 
+const onLike = (likeStatus,count)=>{
+    return(dispatch)=>{
+
+    }
+}
+
 //reducer
 const defaultState = fromJS({
     classic: {

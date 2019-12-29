@@ -23,5 +23,8 @@ export const NaviWrapper=styled.div`
       flex: 1;
       font-size: 14px;
     }
+    .active{
+      color: #999999;
+    }
   }
 `

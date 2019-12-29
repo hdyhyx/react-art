@@ -1,5 +1,5 @@
 import React from "react"
-import {getLatestKey, setLatestKey} from "../../common/utils/storage";
+import {getLatestKey} from "../../common/utils/storage";
 import {NaviWrapper} from "./style"
 
 function Navi(props) {
@@ -17,7 +17,7 @@ function Navi(props) {
         onPrev(index)
     }
     const isLatest = () => {
-        let latest = setLatestKey()
+        let latest = parseInt(getLatestKey())
         return index === latest ? true : false
     }
 
@@ -29,7 +29,7 @@ function Navi(props) {
             <div className="container">
                 <span onClick={onLeft} className={`iconfont icon-left ${isLatest() ? 'active' : ''}`}></span>
                 <span className="text">{title}</span>
-                <span onClick={onRight} className="iconfont icon-playfill"></span>
+                <span onClick={onRight} className={`iconfont icon-playfill ${isFirst()?'active' : ''}`}></span>
             </div>
         </NaviWrapper>
     )
